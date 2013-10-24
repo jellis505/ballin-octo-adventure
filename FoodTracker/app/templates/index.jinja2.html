@@ -6,6 +6,22 @@
         {{ link_tag('main') }}
 {% endblock %}
 
+{% macro input(name, desc, type='text', placeholder=None) -%}
+    <div class="control-group {{ error(name) }}">
+        <label class="control-label" for="{{ name }}">{{ desc }}</label>
+        <div class="controls">
+            <input  type="{{ type }}" 
+                    name="{{ name }}" id="{{ name }}" 
+                    value="{{ request.form[name] }}"
+                    placeholder="{{ placeholder }}">
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro button(name) -%}
+    <button type="submit" class="btn btn-primary">{{ name }}</button>
+{%- endmacro %}
+
 {% block body %}
 		<div id="first-visit-dialog" class="modal hi fade in">
 			<div class="modal-header">
@@ -15,13 +31,19 @@
 		
 				<div class="modal-body">
 					<h4>Keep track of what you eat and for how much</h4>
-	:q			<p> Ambi takes you to the most hopping spots, by giving you access to real time images of the bar scene 					in your area, "poppin" ratings, and usable drink coupons provided by each bar.<p>
+                    		<p> FoodTracker is an easy to use web app, which allows you to track the amount of money that you spend on food.  Come inside and check it out!<p>
 				</div>
-		
 			<div class="modal-footer">
-				<p>Are you a Bar-Owner or a Bar-Goer?</p>
-				<a href="barowner" class="btn" data-dismiss="modal">Bar-Owner</a>
-				<a href="bar-goer" class="btn" data-dismiss="modal">Bar-Goer</a>
+            	<div id="submit-form">
+            		<form method="POST">
+            			<fieldset>
+            				{{ input("UserName", "Enter Your Username!", placeholder="Email") }}
+            				<div class="form-actions">
+            					{{ button("Submit") }}
+            				</div>
+            		    </fieldset>
+            	    </form>				
+                </div>   
 			</div>
 		</div>
 {% endblock %}
