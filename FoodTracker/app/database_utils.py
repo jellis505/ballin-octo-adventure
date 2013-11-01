@@ -101,7 +101,7 @@ def GetValuesforDisplay(UserName):
             money_this_month += meal["Price"]
 
     # We want the average amount of money spent
-    avg_money_this_week = money_this_week/float(7)
-    avg_money_this_month = money_this_month/float(30)
+    avg_money_this_week = "%.2f" % (money_this_week/float(7))
+    avg_money_this_month = "%.2f" % (money_this_month/float(30))
 
     return money_today, avg_money_this_week, avg_money_this_month, meals_for_user

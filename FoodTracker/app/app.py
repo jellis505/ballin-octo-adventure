@@ -35,9 +35,10 @@ def home():
             print "Avg Money Spent this week =", week
             print "Avg Money Spent this month =", month
             print "These are the meals =", meals
-            
+
+
             # Now add template rendering based on the data
-        return render_template('index.jinja2.html');
+        return render_template('trackedmeals.jinja2.html', day=day, month=month, week=week);
 
 # This runs the app manager      
 manager = Manager(app);

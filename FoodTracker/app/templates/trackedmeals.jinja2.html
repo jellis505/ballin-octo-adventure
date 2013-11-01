@@ -1,0 +1,48 @@
+{% extends 'layout.jinja2.html' %}
+
+{% block title %}FoodTracker -- Tracked Meals{% endblock %}
+
+{% block css %}
+        {{ link_tag('main') }}
+{% endblock %}
+
+{% macro error(name) -%}
+    {% if errors and errors[name] -%}
+        error
+    {% endif -%}
+{% endmacro -%}
+
+{% block body %}
+
+		<div class="page-header">
+            <h1>Tracked Meals<small>Don't get fat you lazy pig!</small></h1>
+        </div>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge">{{ day }}</span>
+                Money Spent Today
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ week }}</span>
+                Average Daily Spend This Week
+            </li>
+            <li class="list-group-item">
+                <span class="badge">{{ month }}</span>
+                Average Daily Spend This Month
+            </li>
+        </ul>
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+        {{ script_tag('hnfake') }}
+        {{ script_tag('cookies') }}
+        {{ script_tag('animation') }}
+        {{ script_tag('firstuser') }}
+        {{ script_tag('main') }}
+{% endblock %}
