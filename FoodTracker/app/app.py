@@ -7,7 +7,7 @@ app.debug = True
 
 @app.route('/')
 def index():
-    return render_template('index.jinja2.html');
+    return render_template('index.jinja2.html', message="Now Let's get tracking!");
 
 @app.route('/tracked_meals', methods=['POST'])
 def home():
@@ -18,6 +18,11 @@ def home():
             meal_info['UserName'] = form['UserName']
             meal_info['Meal'] = form['Meal']
             meal_info['Price'] = form['Price']
+            meal_info['FoodType'] = form['FoodType']
+
+            # Check to make sure that the 
+            if meal_info['FoodType'] not in ['Food', 'Alcohol']:
+                return render_template('index.jinja2.html', message="You didn't enter proper information, please try again")
             
             # insert meal into database
             database_utils.InsertMeal(meal_info)

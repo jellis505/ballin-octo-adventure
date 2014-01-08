@@ -24,6 +24,7 @@
     </div>
 {%- endmacro %}
 
+
 {% macro button(name) -%}
     <button type="submit" class="btn btn-primary">{{ name }}</button>
 {%- endmacro %}
@@ -38,12 +39,14 @@
 				<div class="modal-body">
 					<h4>Keep track of what you eat and for how much</h4>
                     		<p> FoodTracker is an easy to use web app, which allows you to track the amount of money that you spend on food.  Come inside and check it out!<p>
+                            <p> {{ message }} <p>
 				</div>
 			<div class="modal-footer">
             	<div id="submit-form">
             		<form method="POST" action="tracked_meals">
             			<fieldset>
             				{{ input("UserName", "Enter Your Username!", placeholder="UserName") }}
+                            {{ input("FoodType","Is this a Food or Alcohol expense?", placeholder="Food or Alcohol")}}
                             {{ input("Meal", "Enter the Meal Description", placeholder="Meal") }}
                             {{ input("Price", "Enter the Price of the Meal", placeholder="Price") }}
             				<div class="form-actions">
