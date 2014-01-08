@@ -14,6 +14,7 @@ def home():
         if request.method == 'POST':
             form = request.form
             # Get the meal info from the form
+            print form
             meal_info = dict()
             meal_info['UserName'] = form['UserName']
             meal_info['Meal'] = form['Meal']
@@ -22,28 +23,34 @@ def home():
 
             # Check to make sure that the 
             if meal_info['FoodType'] not in ['Food', 'Alcohol']:
-                return render_template('index.jinja2.html', message="You didn't enter proper information, please try again")
+                return render_template('index.jinja2.html', message="You have to enter 'Alcohol' or 'Food'")
+
+            try: 
+                float(meal_info['Price'])
+            except ValueError:
+                return render_template('index.jinja2.html', message="The price that you entered is not valid please try again")
             
             # insert meal into database
             database_utils.InsertMeal(meal_info)
             
             # Get the UserName and meals
             UserName = meal_info["UserName"]
-            Meals = database_utils.GetMeals(UserName)
+            food_meals, alcohol_meals = database_utils.GetMeals(UserName)
             
             # Debug Purposes
             print "The UserName is", UserName
+            print list(food_meals), list(alcohol_meals)
 
             # Now let's get the cost and all of the meals
-            day,week,month,meals = database_utils.GetValuesforDisplay(UserName)
-            print "Money Spent Today =", day
-            print "Avg Money Spent this week =", week
-            print "Avg Money Spent this month =", month
-            print "These are the meals =", meals
+            food_,alcohol_, entries = database_utils.GetValuesforDisplay(UserName)
 
+            # Now let's sort the entires based on when they were input into the system,
+            # we want to sort them so that the largest entries appear in the next section
+            sorted_entries = sorted(entries, key=lambda k : k['Time'], reverse=True)
+            print sorted_entries
 
             # Now add template rendering based on the data
-        return render_template('trackedmeals.jinja2.html', day=day, month=month, week=week);
+        return render_template('trackedmeals.jinja2.html', food_vals=food_, alcohol_vals=alcohol_, entries=sorted_entries);
 
 # This runs the app manager      
 manager = Manager(app);
