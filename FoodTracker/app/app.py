@@ -7,7 +7,7 @@ app.debug = True
 
 @app.route('/')
 def index():
-    return render_template('index.jinja2.html', message="Now Let's get tracking!");
+    return render_template('index.jinja2.html', message="Now Let's get tracking!", exist_error=False);
 
 @app.route('/tracked_meals', methods=['POST'])
 def home():
@@ -23,12 +23,12 @@ def home():
 
             # Check to make sure that the 
             if meal_info['FoodType'] not in ['Food', 'Alcohol']:
-                return render_template('index.jinja2.html', message="You have to enter 'Alcohol' or 'Food'")
+                return render_template('index.jinja2.html', message="You have to enter 'Alcohol' or 'Food'",exist_error=True)
 
             try: 
                 float(meal_info['Price'])
             except ValueError:
-                return render_template('index.jinja2.html', message="The price that you entered is not valid please try again")
+                return render_template('index.jinja2.html', message="The price that you entered is not valid please try again",exist_error=True)
             
             # insert meal into database
             database_utils.InsertMeal(meal_info)

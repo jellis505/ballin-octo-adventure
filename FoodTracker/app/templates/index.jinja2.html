@@ -39,7 +39,11 @@
 				<div class="modal-body">
 					<h4>Keep track of what you eat and for how much</h4>
                     		<p> FoodTracker is an easy to use web app, which allows you to track the amount of money that you spend on food.  Come inside and check it out!<p>
-                            <p> {{ message }} <p>
+                            {% if exist_error %}
+                                <p class='text-warning'> {{ message }} </p>
+                            {% else %}
+                                <p class='text-info'> {{ message }} </p>
+                            {% endif %}
 				</div>
 			<div class="modal-footer">
             	<div id="submit-form">
